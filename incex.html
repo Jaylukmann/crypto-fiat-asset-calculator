@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cryptocurrency-Fiat Calculator</title>
+  <style type="text/css">
+  body {
+  font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+    width:100%;
+    height:100%;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    background-color: #fff;
+  }
+
+  .header{
+    text-align: center;
+  }
+
+  .formSection{
+    text-align: center;
+  }
+ 
+  li{
+    text-decoration-style: none;
+  }
+#submit{
+  background: blue;
+  color:white;
+  height: 2em;
+  width: 6em;
+}
+#msg{
+  border-style: otset;
+  border-width: 5px;
+  border-color: blue;
+}
+
+</style>
+
+
+</head>
+
+<body>
+  <div class="header">
+
+  <h1>WELCOME!</h1><br>
+ 
+  <h2>Cryptocurrency-Fiat Calculator</h2><br><br>
+  </div>
+
+    <form class="formSection">
+  
+  <select name="" id="crypto">
+    <option value="" selected>Cryptocurrencies</option>
+  </select> <input id="cryptoAmount" type="text" placeholder="Enter the value">  
+
+<select name="fiat" id="fiat" >
+  <option value="" selected>Fiats</option>
+</select><input type="text" placeholder="Enter the value"><br><br>
+<input id="submit" type="submit" value="Calculate"><br>
+<p id="msg"></p>
+</form>
+
+<script type="text/javascript">
+
+function createNode(element) {
+          return document.createElement(element);
+      }
+    
+      function append(parent, el) {
+        return parent.appendChild(el);
+      }
+        
+          fetch("https://currency-converter5.p.rapidapi.com/currency/list?format=json", {
+        	"method": "GET",
+	        "headers": {
+	      	"x-rapidapi-host": "currency-converter5.p.rapidapi.com",
+	      	"x-rapidapi-key": "a52ac09f88msh86e0f7c158fee09p1d1f93jsn89f1eaefa3e8"
+        	}
+          })
+      .then((resp) => resp.json())
+      .then(function(data) {
+        let dropdown = document.getElementById("crypto");
+        for (let i = 0; i < data.length; i++) {
+          option = document.createElement('option');
+      	  option.text = data[i].items.currencies;
+      	  option.value = data[i].items.abbreviation;
+          dropdown.add(option[i]);
+         
+        }
+        })
+    
+
+    .catch(err => {
+	  console.log(err);
+    });
+
+
+
+  function createNode(element) {
+          return document.createElement(element);
+      }
+    
+      function append(parent, el) {
+        return parent.appendChild(el);
+      }
+        
+          fetch("https://currency-converter5.p.rapidapi.com/currency/list?format=json", {
+        	"method": "GET",
+	        "headers": {
+	      	"x-rapidapi-host": "currency-converter5.p.rapidapi.com",
+	      	"x-rapidapi-key": "a52ac09f88msh86e0f7c158fee09p1d1f93jsn89f1eaefa3e8"
+        	}
+          })
+      .then((resp) => resp.json())
+      .then(function(data) {
+        let dropdown = document.getElementById("fiat");
+        for (let i = 0; i < data.length; i++) {
+          option = document.createElement('option');
+      	  option.text = data[i].items.currencies;
+      	  option.value = data[i].items.abbreviation;
+          dropdown.add(optionx[i]);
+         
+        }
+        })
+    
+
+    .catch(err => {
+	  console.log(err);
+    });
+
+
+    
+  //Cryptocurrency-Fiat converter
+          function calculate(e) {
+         
+          let crypto=document.getElementById('crypto').value; 
+          let crypto=document.getElementById('cryptoAmount').value;
+          let converter=(crypto)*(cryptoAmount);
+          let submit= document.getElementById('submit'); 
+          let msg =document.getElementById('msg');
+
+          e.preventDefault();
+           msg.textContent = `Your ${cryptoAmount} ${crypto} is equivalent to ${converter} ${fiat}.Thank you.`;
+           }
+            submit.addEventListener('click',calculate);
+
+           
+           function myFunction() {
+ document.getElementById("myDropdown").classList.toggle("show");
+}
+
+function filterFunction() {
+ var input, filter, ul, li, a, i;
+ input = document.getElementById("myInput");
+ filter = input.value.toUpperCase();
+ dropdown = document.getElementById("myDropdown");
+ a = dropdown.getElementsByTagName("a");
+ for (i = 0; i < a.length; i++) {
+   txtValue = a[i].textContent || a[i].innerText;
+   if (txtValue.toUpperCase().indexOf(filter) > -1) {
+     a[i].style.display = "";
+   } else {
+     a[i].style.display = "none";
+   }
+ }
+}
+        </script>
+
+</body>
+</html>
+
+
