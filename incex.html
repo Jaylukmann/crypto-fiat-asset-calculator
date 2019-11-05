@@ -56,7 +56,7 @@
     <select name="" id="crypto">
       <option value="" selected>Cryptocurrencies</option>
     </select> 
-    <input id="cryptoAmount" type="text" placeholder="Enter the value">
+    <input id="cryptoAmount" type="number" placeholder="Enter the value" required>
 
     <select name="fiat" id="fiat">
       <option value="" selected>Fiats</option>
@@ -89,54 +89,20 @@
         newKey = Object.keys(obj)
         newVal = Object.values(obj)
         let dropdown = document.getElementById("crypto");
+        let dropdown2 = document.getElementById("fiat");
         for (let i = 0; i < newKey.length; i++) {
           let option = document.createElement('option');
+          let option2 = document.createElement('option');
           option.innerHTML = `${newVal[i]}`
+          option2.innerHTML = `${newVal[i]}`
           option.value = `${newKey[i]}`
+          option2.value = `${newKey[i]}`
           console.log('i rn')
           append(dropdown, option);
+          append(dropdown2, option2);
 
         }
       })
-      .catch(err => {
-        console.log(err);
-      });
-
-
-
-    function createNode(element) {
-      return document.createElement(element);
-    }
-
-    function append(parent, el) {
-      return parent.appendChild(el);
-    }
-
-    fetch("https://currency-converter5.p.rapidapi.com/currency/list?format=json", {
-        "method": "GET",
-        "headers": {
-          "x-rapidapi-host": "currency-converter5.p.rapidapi.com",
-          "x-rapidapi-key": "a52ac09f88msh86e0f7c158fee09p1d1f93jsn89f1eaefa3e8"
-        }
-      })
-      .then((resp) => resp.json())
-      .then(function (data) {
-        var obj = data.currencies
-        newKey = Object.keys(obj)
-        newVal = Object.values(obj)
-        let dropdown = document.getElementById("fiat");
-        for (let i = 0; i < newKey.length; i++) {
-          let option = document.createElement('option');
-          option.innerHTML = `${newVal[i]}`
-          option.value = `${newKey[i]}`
-          console.log('i rn')
-          append(dropdown, option);
-
-        }
-
-      })
-
-
       .catch(err => {
         console.log(err);
       });
@@ -150,6 +116,20 @@
       let crypto2 = document.getElementById('fiat').value;
       let cryptoAmount = document.getElementById('cryptoAmount').value;
       let res;
+      if (!cryptoAmount || crypto===""||crypto2===""){
+        if(!cryptoAmount){
+
+          alert("Enter valid number")
+        }
+        if(crypto===""){
+
+        alert("select your crypto")
+        }if(crypto2===""){
+
+        alert("select your crypto yo want to change to")
+        }
+
+      }else{
       fetch(`https://currency-converter5.p.rapidapi.com/currency/convert?format=json&from=${crypto}&to=${crypto2}&amount=${cryptoAmount}`,
       {
       "method": "GET",
@@ -172,6 +152,7 @@
       .catch(err=>{
         console.log(err)
       })
+      }
       e.preventDefault();
     }
     submit.addEventListener('click', calculate);
